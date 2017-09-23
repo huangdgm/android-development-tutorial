@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="nz.ac.aut.helloworldexample">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">                                        // @string refers to the strings.xml file
+                                                                                // @style refers to the styles.xml file
+                                                                                // @mipmap refers to the mipmap directory
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />            // indicate that this activity serves as the entry point for the application
+
+                <category android:name="android.intent.category.LAUNCHER" />    // indicate that the activity can be launched from the device's launcher icon
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
