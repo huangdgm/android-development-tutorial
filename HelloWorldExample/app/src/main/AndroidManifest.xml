@@ -8,9 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">                                        // @string refers to the strings.xml file
-                                                                                // @style refers to the styles.xml file
-                                                                                // @mipmap refers to the mipmap directory
+        android:theme="@style/AppTheme">
+        // Access resources defined under the 'res'.
+        // @string/app_name: The '@string' means the specified resource is of the string type, the 'app_name' is the name of the resource.
+        // @style/AppTheme: The '@style' means the specified resource is of the style type, the 'AppTheme' is the name of the resource.
+        // @mipmap refers to the mipmap directory
+        // The '@xxx/xxx' is the usage of accessing resources in XML.
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />            // indicate that this activity serves as the entry point for the application
