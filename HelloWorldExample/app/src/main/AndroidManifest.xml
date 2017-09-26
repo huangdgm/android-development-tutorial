@@ -22,6 +22,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />    // indicate that the activity can be launched from the device's launcher icon
             </intent-filter>
         </activity>
+
+        <service android:name=".MyService">     // declare the service component.
+        </service>
+
+        <receiver android:name=".MyReceiver">   // declare the receiver component.
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />      // This receiver is registered with the 'BOOT_COMPLETED' intent, so that this receiver can capture this kind of intent and performs related actions afterwards.
+                <action android:name="nz.ac.aut.helloworldexample.CUSTOM_INTENT" /> // This is a custom-defined intent.
+            </intent-filter>
+        </receiver>
+        
+        <provider
+            android:authorities="nz.ac.aut.helloworldexample.StudentsProvider"
+            android:name=".StudentsProvider" />
+        
     </application>
 
 </manifest>

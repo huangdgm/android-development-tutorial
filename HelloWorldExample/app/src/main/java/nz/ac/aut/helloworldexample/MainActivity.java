@@ -1,9 +1,16 @@
 package nz.ac.aut.helloworldexample;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 // When the activity is first started, the onStart() and the onResume() get called.
 // When the user click the Home button directly from the activity, the onPause() and the onStop() get called.
@@ -66,5 +73,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("Android:", "The onDestroy() event");
+    }
+
+    public void startService(View view) {
+        startService(new Intent(getBaseContext(), MyService.class));
+    }
+
+    public void stopService(View view) {
+        stopService(new Intent(getBaseContext(), MyService.class));
+    }
+
+    public void broadcastIntent(View view) {
+        Intent intent = new Intent();
+        intent.setAction("nz.ac.aut.helloworldexample.CUSTOM_INTENT");  // Define the intent type.
+        // Send the broadcast to other components, including the components defined in the local app,
+        // such as the MyReceiver.
+        sendBroadcast(intent);
+    }
+
+    public void onClickAddName(View view) {
+        // Add a new student record
+        ContentValues values = new ContentValues();
+
+        values.put(StudentsProvider.NAME, ((EditText)findViewById(R.id.editTextName)).getText().toString());
+        values.put(StudentsProvider.GRADE, ((EditText)findViewById(R.id.editTextGrade)).getText().toString());
+
+        Uri uri = getContentResolver().insert(StudentsProvider.CONTENT_URI, values);
+
+        Toast.makeText(getBaseContext(), uri.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    public void onClickRetrieveStudents(View view) {
+        // Retrieve student records
+        String URL = "content://nz.ac.aut.helloworldexample.StudentsProvider";
+
+        Uri students = Uri.parse(URL);
+        Cursor c = managedQuery(students, null, null, null, "name");
+
+        if (c.moveToFirst()) {
+            do{
+                Toast.makeText(this,
+                        c.getString(c.getColumnIndex(StudentsProvider._ID)) +
+                                ", " +  c.getString(c.getColumnIndex( StudentsProvider.NAME)) +
+                                ", " + c.getString(c.getColumnIndex( StudentsProvider.GRADE)),
+                        Toast.LENGTH_SHORT).show();
+            } while (c.moveToNext());
+        }
     }
 }
